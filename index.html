@@ -84,6 +84,7 @@
       <button>End Timer</button>
       <button>Console Trace</button>
       <button>Trigger a Global Error</button>
+      <button>Fetch Standups (real)</button>
     </section>
   </main>
 
@@ -102,6 +103,131 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    document.querySelector('#error-btns').addEventListener('click', btnType => {
+      switch(btnType.target.textContent){
+        case 'Console Log':
+          console.log('Este es un console message o algo');
+          break;
+        case 'Console Error':
+          console.error('Ay ay ay, este es un console error o algo, no mame wey!');
+          break;
+        case 'Console Count':
+          console.count('El console es counting o algo');
+          break;
+        case 'Console Warn':
+          console.warn('Este es un console warning; you looking for trouble, gringo?');
+          break;
+        case 'Console Assert':
+          console.assert(false, 'You are NOT obsessed brimstone');
+          break;
+        case 'Console Clear':
+          console.clear();
+          break;
+        case 'Console Dir':
+          console.dir(document.querySelector('main'));
+          break;
+        case 'Console dirxml':
+          console.dirxml(document.querySelector('main'));
+          break;
+        case 'Console Group Start':
+          console.group('Viva la console group o algo');
+          break;
+        case 'Console Group End':
+          console.groupEnd();
+          break;
+        case 'Console Table':
+          console.table([ { Obsessed : 'o', conmigo : 'algo' } ]);
+          break;
+        case 'Start Timer':
+          console.time('Clock has been ticking, wey');
+          break;
+        case 'End Timer':
+          console.timeEnd('Clock has been ticking, wey');
+          break;
+        case 'Fetch Standups (real)':
+          fetchStandups();
+          break;
+        case 'Console Trace':
+          algo();
+          break;
+        case 'Trigger a Global Error':
+          Roblox();
+          break;
+        default:
+          console.log('obsessed');
+          break;
+      }
+    })
+
+    function tracing(){
+      console.trace();
+    }
+    function mi(){
+      tracing();
+    }
+    function stack(){
+      mi();
+    }
+    function cause(){
+      stack();
+    }
+    function you(){
+      cause();
+    }
+    function obsessed(){
+      you();
+    }
+    function wit(){
+      obsessed();
+    }
+    function me(){
+      wit();
+    }
+    function o(){
+      me();
+    }
+    function algo(){
+      o();
+    }
+
+    async function fetchStandups(){
+      let res;
+      let json;
+      try{
+        //extremely valid API that has worked for 3000 years
+        const API = location.hostname;
+        const res = await fetch(`${API}/api/standups`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if(!res.ok){
+          throw new APIError("Ay ay ay the API don't work o algo");
+        }
+        json = await res.json();
+      } catch (error) {
+        if(error instanceof APIError){
+          alert(`${error.name}: ${error.message}`);
+        }else{
+          alert("I dunno something broke");
+          throw error;
+        }
+        console.error(error.message);
+      }
+      finally{
+        console.log(res);
+      }
+    }
+
+    class APIError extends Error {
+      constructor(message){
+        super(message);
+        this.name = "APIError";
+      }
+    }
+
+    window.onerror = function(msg, url, line, col, error){
+      console.log(`Ay ay ay! ${msg} o algo\nAt URL: ${url}\nAt line: ${line}\no algo`);
+    }
   </script>
 </body>
 
